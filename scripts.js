@@ -48,10 +48,64 @@ const nameProvinceMap = names.reduce((acc, name, index) => {
 console.log(nameProvinceMap);
 //reduce constructs an object where each name maps to its corresponding province.
 
+/////////////////////////////////////// Additional Exercises ////////////////////////////////////////                           
+
+//1.Console log each product name using forEach
+const products = [
+    { product: 'banana', price: "2" },
+    { product: 'mango', price: 6 },
+    { product: 'potato', price: ' ' },
+    { product: 'avocado', price: "8" },
+    { product: 'coffee', price: 10 },
+    { product: 'tea', price: '' },
+  ];
+  
+  products.forEach(product => console.log(product.product));
+//forEach iterates over each product and logs its name.
 
 
+//2.Filter products with names longer than 5 characters
+const longNameProducts = products.filter(product => product.product.length > 5);
+console.log(longNameProducts);
+// filter creates a new array of products with names longer than 5 characters.
 
 
+//3.Convert prices to numbers, remove products without prices, and calculate the total price
+const totalPrice = products
+  .filter(product => product.price.trim() !== '')
+  .map(product => ({ ...product, price: Number(product.price) }))
+  .reduce((acc, product) => acc + product.price, 0);
+
+console.log(totalPrice);
+//filter removes products without prices, map converts prices to numbers, and reduce calculates the total price.
+
+//4.Concatenate all product names using reduce
+const productNames = products.reduce((acc, product, index) => {
+    return acc + (index === 0 ? '' : ', ') + product.product;
+  }, '');
+  
+  console.log(productNames);
+//reduce concatenates product names into a single string.
 
 
+//5.Calculate highest and lowest priced items using reduce
+const priceInfo = products.reduce((acc, product) => {
+    const price = Number(product.price);
+    if (!acc.highest || price > acc.highest.price) acc.highest = product;
+    if (!acc.lowest || price < acc.lowest.price) acc.lowest = product;
+    return acc;
+  }, {});
+  
+  console.log(`Highest: ${priceInfo.highest.product}. Lowest: ${priceInfo.lowest.product}`);
+  //reduce identifies the highest and lowest priced items.
+
+
+  //6.Recreate object with changed keys using reduce and Object.entries
+  const updatedProducts = Object.entries(products).reduce((acc, [key, value]) => {
+    acc[key] = { name: value.product, cost: value.price };
+    return acc;
+  }, {});
+  
+  console.log(updatedProducts);
+//Object.entries and reduce are used to change the keys of each product object.
 
